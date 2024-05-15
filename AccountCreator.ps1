@@ -58,4 +58,4 @@ function New-OneOffADUser{
 }
 
 <#Create the user#>
-New-OneOffADUser -FirstName "TestFirstName" -LastName "TestLastName" -UserName "TestUser" -Reason "Test" -Server "wservertest.local" -ExpirationDate "2024-5-31"
+New-OneOffADUser -FirstName "TestFirstName2" -LastName "TestLastName2" -UserName "TestUser2" -Reason "Test2" -Server "wservertest.local" -ExpirationDate "2024-5-31"
