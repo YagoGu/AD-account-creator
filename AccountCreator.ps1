@@ -22,12 +22,9 @@ function New-OneOffADUser{
         if($ExpirationDate){
             $Date=Get-Date -Date $ExpirationDate
         }
-
+        <#Random password generator#>
         $PlainTextPassword= -Join (@('0'..'9';'A'..'Z';'a'..'z';'@';'!';'#';'&') | Get-Random -Count $PasswordLength)
         $Password=ConvertTo-SecureString -String $PlainTextPassword -AsPlainText -Force
-        
-        Write-Output $Password
-
        
         $ADUserParams=@{
             Name=$UserName
@@ -42,14 +39,17 @@ function New-OneOffADUser{
             Server=$Server
         }
 
+        <#Show every user parameter except password#>
         Write-Output $ADUserParams
-        <#Error is in here
+        
+        <#If it have expiration date create user with it#>
         if($Date){
             New-ADUser @ADUserParams -AccountExpirationDate $Date
         }else{
             New-ADUser @ADUserParams
         }
-        #>
+        
+        <#Shows user password + basic params#>
         Write-Output "User create for $FirstName $LastName with the username: $UserName and password: $PlainTextPassword"
     }
     catch {
@@ -58,4 +58,4 @@ function New-OneOffADUser{
 }
 
 <#Create the user#>
-New-OneOffADUser -FirstName "Yago" -LastName "Gutierrez" -UserName "yagouser" -Reason "Test" -Server "wservertest.local" -ExpirationDate "2024-5-31"
+New-OneOffADUser -FirstName "TestFirstName" -LastName "TestLastName" -UserName "TestUser" -Reason "Test" -Server "wservertest.local" -ExpirationDate "2024-5-31"
