@@ -42,15 +42,14 @@ function New-OneOffADUser{
             Server=$Server
         }
 
-        <#Write-Output $ADUserParams#>
-        <#Error is in here#>
+        Write-Output $ADUserParams
+        <#Error is in here
         if($Date){
             New-ADUser @ADUserParams -AccountExpirationDate $Date
         }else{
             New-ADUser @ADUserParams
         }
-        <##>
-
+        #>
         Write-Output "User create for $FirstName $LastName with the username: $UserName and password: $PlainTextPassword"
     }
     catch {
