@@ -25,17 +25,20 @@ function New-OneOffADUser{
 
         $PlainTextPassword= -Join (@('0'..'9';'A'..'Z';'a'..'z';'@';'!';'#';'&') | Get-Random -Count $PasswordLength)
         $Password=ConvertTo-SecureString -String $PlainTextPassword -AsPlainText -Force
-    
+        
+        Write-Output $Password
+
+       <#
         $ADUserParams=@{
             Name=$UserName
             GivenName=$FirstName
             SurName=$LastName
             SamAccountName=$UserName
-            UserPrincipalName="$Username@wservertest.local"
+            UserPrincipalName="$UserName@wservertest.local"
             Description=$Reason
             Title=$Reason
             Enabled=$true
-            AccountPassword=$Password
+            Password=$Password
             Server=$Server
         }
 
@@ -45,8 +48,9 @@ function New-OneOffADUser{
         else{
             New-ADUser @ADUserParams
         }
+       #>
 
-        Write-Output "User create for $FirstName $LastName with the username: $Username and password: $PlainTextPassword"
+        Write-Output "User create for $FirstName $LastName with the username: $UserName and password: $PlainTextPassword"
     }
     catch {
         Write-Error $_.Exception.Message
