@@ -28,7 +28,7 @@ function New-OneOffADUser{
         
         Write-Output $Password
 
-       <#
+       
         $ADUserParams=@{
             Name=$UserName
             GivenName=$FirstName
@@ -38,17 +38,18 @@ function New-OneOffADUser{
             Description=$Reason
             Title=$Reason
             Enabled=$true
-            Password=$Password
+            AccountPassword=$Password
             Server=$Server
         }
 
+        <#Write-Output $ADUserParams#>
+        <#Error is in here#>
         if($Date){
-            New-ADUser @ADUserParams -ExpirationDate $Date
-        }
-        else{
+            New-ADUser @ADUserParams -AccountExpirationDate $Date
+        }else{
             New-ADUser @ADUserParams
         }
-       #>
+        <##>
 
         Write-Output "User create for $FirstName $LastName with the username: $UserName and password: $PlainTextPassword"
     }
